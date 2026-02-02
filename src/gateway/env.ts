@@ -30,6 +30,14 @@ export function buildEnvVars(env: MoltbotEnv): Record<string, string> {
   if (!envVars.OPENAI_API_KEY && env.OPENAI_API_KEY) {
     envVars.OPENAI_API_KEY = env.OPENAI_API_KEY;
   }
+  if (env.QWEN_API_KEY) {
+    // 1. 把 Qwen Key 伪装成 OpenAI Key
+    envVars.OPENAI_API_KEY = env.QWEN_API_KEY;
+    // 2. 强制指定阿里云的兼容接口地址
+    envVars.OPENAI_BASE_URL = 'https://dashscope.aliyuncs.com/compatible-mode/v1';
+    // 3. 强制指定模型为 qwen-max (或者 qwen-plus)
+    envVars.MODEL = 'qwen3-vl-flash';
+  }
 
   // Pass base URL (used by start-moltbot.sh to determine provider)
   if (normalizedBaseUrl) {
