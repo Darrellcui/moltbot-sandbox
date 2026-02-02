@@ -4,6 +4,7 @@ import type { Sandbox } from '@cloudflare/sandbox';
  * Environment bindings for the Moltbot Worker
  */
 export interface MoltbotEnv {
+  QWEN_API_KEY?: string;
   Sandbox: DurableObjectNamespace<Sandbox>;
   ASSETS: Fetcher; // Assets binding for admin UI static files
   MOLTBOT_BUCKET: R2Bucket; // R2 bucket for persistent storage
